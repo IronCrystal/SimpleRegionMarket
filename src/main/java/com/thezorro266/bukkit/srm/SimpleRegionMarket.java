@@ -23,8 +23,11 @@ import java.text.MessageFormat;
 import java.util.logging.Level;
 
 import com.thezorro266.bukkit.srm.hooks.*;
+
 import lombok.Getter;
+
 import org.bukkit.plugin.java.JavaPlugin;
+
 import com.thezorro266.bukkit.srm.exceptions.ContentLoadException;
 import com.thezorro266.bukkit.srm.exceptions.TemplateFormatException;
 import com.thezorro266.bukkit.srm.factories.RegionFactory;
@@ -153,7 +156,6 @@ public class SimpleRegionMarket extends JavaPlugin {
 		// Register events
 		playerManager.registerEvents();
 		new EventListener();
-
 		// Set command executor
 		getCommand(SRM_COMMAND).setExecutor(new CommandHandler());
 

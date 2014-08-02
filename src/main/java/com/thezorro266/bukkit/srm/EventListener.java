@@ -19,6 +19,8 @@
 package com.thezorro266.bukkit.srm;
 
 import java.text.MessageFormat;
+
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,16 +29,19 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+
+import com.thezorro266.bukkit.srm.customevent.PrePlayerClickSignEvent;
 import com.thezorro266.bukkit.srm.exceptions.ContentSaveException;
 import com.thezorro266.bukkit.srm.factories.SignFactory;
 import com.thezorro266.bukkit.srm.factories.SignFactory.Sign;
 import com.thezorro266.bukkit.srm.helpers.Location;
+import com.thezorro266.bukkit.srm.scheduler.ClickSignTask;
 import com.thezorro266.bukkit.srm.templates.Template;
 
 public class EventListener implements Listener {
 	public EventListener() {
 		SimpleRegionMarket.getInstance().getServer().getPluginManager()
-				.registerEvents(this, SimpleRegionMarket.getInstance());
+		.registerEvents(this, SimpleRegionMarket.getInstance());
 	}
 
 	@EventHandler
@@ -75,16 +80,16 @@ public class EventListener implements Listener {
 					} catch (ContentSaveException e) {
 						if (event.getPlayer() != null)
 							event.getPlayer()
-									.sendMessage(
-											ChatColor.RED
-													+ LanguageSupport.instance
-															.getString("region.save.problem.playermsg"));
+							.sendMessage(
+									ChatColor.RED
+									+ LanguageSupport.instance
+									.getString("region.save.problem.playermsg"));
 
 						SimpleRegionMarket
-								.getInstance()
-								.getLogger()
-								.severe(MessageFormat.format(LanguageSupport.instance
-										.getString("region.save.problem.console"), sign.getRegion().getName()));
+						.getInstance()
+						.getLogger()
+						.severe(MessageFormat.format(LanguageSupport.instance
+								.getString("region.save.problem.console"), sign.getRegion().getName()));
 						SimpleRegionMarket.getInstance().printError(e);
 					}
 				} else {
@@ -101,7 +106,11 @@ public class EventListener implements Listener {
 				if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 					Sign sign = SignFactory.instance.getSignFromLocation(Location.fromBlock(event.getClickedBlock()));
 					if (sign != null) {
-						sign.getRegion().getTemplate().clickSign(event.getPlayer(), sign);
+						PrePlayerClickSignEvent playerEvent = new PrePlayerClickSignEvent(event.getPlayer(), sign); // Create the event here
+						Bukkit.getServer().getPluginManager().callEvent(playerEvent);  // Call the event
+						if (!playerEvent.isCancelled()) {
+							Bukkit.getScheduler().runTaskLater(SimpleRegionMarket.getInstance(), new ClickSignTask(event.getPlayer(), sign), 1L);
+						}
 					}
 				}
 			}

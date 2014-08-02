@@ -21,10 +21,13 @@ package com.thezorro266.bukkit.srm.templates;
 import com.thezorro266.bukkit.srm.LanguageSupport;
 import com.thezorro266.bukkit.srm.SimpleRegionMarket;
 import com.thezorro266.bukkit.srm.Utils;
+import com.thezorro266.bukkit.srm.customevent.PlayerRentRegionEvent;
+import com.thezorro266.bukkit.srm.customevent.RegionExpireEvent;
 import com.thezorro266.bukkit.srm.exceptions.ContentSaveException;
 import com.thezorro266.bukkit.srm.factories.RegionFactory;
 import com.thezorro266.bukkit.srm.factories.SignFactory;
 import com.thezorro266.bukkit.srm.hooks.Economy;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -41,9 +44,50 @@ public class TemplateRent extends TemplateLease {
 
 	@Override
 	public void clickSign(Player player, SignFactory.Sign sign) {
-		RegionFactory.Region region = sign.getRegion();
-		if (isRegionOccupied(region)) {
-			if (isRegionOwner(player, region)) {
+		/**
+		 * Calling Custom Event
+		 */
+		PlayerRentRegionEvent event = new PlayerRentRegionEvent(player, sign); // Create the event here
+		Bukkit.getServer().getPluginManager().callEvent(event);  // Call the event
+		
+		if (!event.isCancelled()) {  // Check if the event is not cancelled
+			RegionFactory.Region region = sign.getRegion();
+			if (isRegionOccupied(region)) {
+				if (isRegionOwner(player, region)) {
+					// TODO: Player permissions
+					Economy ec = SimpleRegionMarket.getInstance().getEconomy();
+					double price = (Double) region.getOptions().get("price");
+					String playerAccount = player.getName();
+					String regionAccount = (String) region.getOptions().get("account");
+					if (ec.isEnabled() && price > 0) {
+						if (!ec.isValidAccount(playerAccount)) {
+							player.sendMessage(LanguageSupport.instance.getString("economy.player.no.account"));
+							return;
+						}
+						if (!ec.hasEnough(playerAccount, price)) {
+							player.sendMessage(LanguageSupport.instance.getString("economy.player.no.money"));
+							return;
+						}
+					}
+					ec.subtractMoney(playerAccount, price);
+					if (!regionAccount.isEmpty() && ec.isValidAccount(regionAccount)) {
+						ec.addMoney(regionAccount, price);
+					}
+
+					int time = (Integer) region.getOptions().get("time");
+					int newtime = (Integer) region.getOptions().get("renttime") + time;
+					if (newtime - (int) (System.currentTimeMillis() / 1000) <= maxTime) {
+						region.getOptions().set("renttime", newtime);
+
+						player.sendMessage(MessageFormat.format(LanguageSupport.instance.getString("region.expanded"),
+								Utils.getTimeString(time)));
+					} else {
+						player.sendMessage(LanguageSupport.instance.getString("region.expand.maxtime.reached"));
+					}
+				} else {
+					player.sendMessage(LanguageSupport.instance.getString("region.already.rented"));
+				}
+			} else {
 				// TODO: Player permissions
 				Economy ec = SimpleRegionMarket.getInstance().getEconomy();
 				double price = (Double) region.getOptions().get("price");
@@ -64,71 +108,39 @@ public class TemplateRent extends TemplateLease {
 					ec.addMoney(regionAccount, price);
 				}
 
-				int time = (Integer) region.getOptions().get("time");
-				int newtime = (Integer) region.getOptions().get("renttime") + time;
-				if (newtime - (int) (System.currentTimeMillis() / 1000) <= maxTime) {
-					region.getOptions().set("renttime", newtime);
-
-					player.sendMessage(MessageFormat.format(LanguageSupport.instance.getString("region.expanded"),
-							Utils.getTimeString(time)));
+				clearRegion(region);
+				if (buyerIsOwner) {
+					setRegionOwners(region, new OfflinePlayer[] { player });
 				} else {
-					player.sendMessage(LanguageSupport.instance.getString("region.expand.maxtime.reached"));
+					setRegionMembers(region, new OfflinePlayer[] { player });
 				}
-			} else {
-				player.sendMessage(LanguageSupport.instance.getString("region.already.rented"));
-			}
-		} else {
-			// TODO: Player permissions
-			Economy ec = SimpleRegionMarket.getInstance().getEconomy();
-			double price = (Double) region.getOptions().get("price");
-			String playerAccount = player.getName();
-			String regionAccount = (String) region.getOptions().get("account");
-			if (ec.isEnabled() && price > 0) {
-				if (!ec.isValidAccount(playerAccount)) {
-					player.sendMessage(LanguageSupport.instance.getString("economy.player.no.account"));
-					return;
+
+				int currentSecs = (int) (System.currentTimeMillis() / 1000);
+				int time = (Integer) region.getOptions().get("time");
+				region.getOptions().set("renttime", currentSecs + time);
+
+				region.getOptions().set("owner", player.getName());
+				setRegionOccupied(region, true);
+
+				try {
+					SimpleRegionMarket.getInstance().getTemplateManager().saveRegion(region);
+				} catch (ContentSaveException e) {
+					player.sendMessage(ChatColor.RED + LanguageSupport.instance.getString("region.save.problem.player"));
+					SimpleRegionMarket
+							.getInstance()
+							.getLogger()
+							.severe(MessageFormat.format(LanguageSupport.instance.getString("region.save.problem.console"),
+									region.getName()));
+					SimpleRegionMarket.getInstance().printError(e);
 				}
-				if (!ec.hasEnough(playerAccount, price)) {
-					player.sendMessage(LanguageSupport.instance.getString("economy.player.no.money"));
-					return;
-				}
+
+				player.sendMessage(LanguageSupport.instance.getString("region.new.owner"));
 			}
-			ec.subtractMoney(playerAccount, price);
-			if (!regionAccount.isEmpty() && ec.isValidAccount(regionAccount)) {
-				ec.addMoney(regionAccount, price);
-			}
-
-			clearRegion(region);
-			if (buyerIsOwner) {
-				setRegionOwners(region, new OfflinePlayer[] { player });
-			} else {
-				setRegionMembers(region, new OfflinePlayer[] { player });
-			}
-
-			int currentSecs = (int) (System.currentTimeMillis() / 1000);
-			int time = (Integer) region.getOptions().get("time");
-			region.getOptions().set("renttime", currentSecs + time);
-
-			region.getOptions().set("owner", player.getName());
-			setRegionOccupied(region, true);
-
-			try {
-				SimpleRegionMarket.getInstance().getTemplateManager().saveRegion(region);
-			} catch (ContentSaveException e) {
-				player.sendMessage(ChatColor.RED + LanguageSupport.instance.getString("region.save.problem.player"));
-				SimpleRegionMarket
-						.getInstance()
-						.getLogger()
-						.severe(MessageFormat.format(LanguageSupport.instance.getString("region.save.problem.console"),
-								region.getName()));
-				SimpleRegionMarket.getInstance().printError(e);
-			}
-
-			player.sendMessage(LanguageSupport.instance.getString("region.new.owner"));
+			region.updateSigns();
 		}
-		region.updateSigns();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void schedule() {
 		synchronized (regionList) {
@@ -137,7 +149,10 @@ public class TemplateRent extends TemplateLease {
 					int currentSecs = (int) (System.currentTimeMillis() / 1000);
 
 					if (currentSecs > (Integer) region.getOptions().get("renttime")) {
+						
 						OfflinePlayer op = Bukkit.getOfflinePlayer((String) region.getOptions().get("owner"));
+						RegionExpireEvent event = new RegionExpireEvent(region, op, Bukkit.getOfflinePlayer((String) region.getOptions().get("account")), this); // Create the event here
+						Bukkit.getServer().getPluginManager().callEvent(event);  // Call the event
 
 						clearRegion(region);
 
