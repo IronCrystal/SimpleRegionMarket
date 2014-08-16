@@ -18,6 +18,14 @@
 
 package com.thezorro266.bukkit.srm.templates;
 
+import java.text.MessageFormat;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
+
 import com.thezorro266.bukkit.srm.LanguageSupport;
 import com.thezorro266.bukkit.srm.SimpleRegionMarket;
 import com.thezorro266.bukkit.srm.Utils;
@@ -27,14 +35,6 @@ import com.thezorro266.bukkit.srm.exceptions.ContentSaveException;
 import com.thezorro266.bukkit.srm.factories.RegionFactory;
 import com.thezorro266.bukkit.srm.factories.SignFactory;
 import com.thezorro266.bukkit.srm.hooks.Economy;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.entity.Player;
-
-import java.text.MessageFormat;
 
 public class TemplateRent extends TemplateLease {
 	public TemplateRent(ConfigurationSection templateConfigSection) {
@@ -140,7 +140,6 @@ public class TemplateRent extends TemplateLease {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void schedule() {
 		synchronized (regionList) {

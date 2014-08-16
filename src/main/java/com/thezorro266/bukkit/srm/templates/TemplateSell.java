@@ -22,13 +22,13 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.HashMap;
 
-import com.thezorro266.bukkit.srm.hooks.Economy;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.thezorro266.bukkit.srm.LanguageSupport;
 import com.thezorro266.bukkit.srm.SimpleRegionMarket;
@@ -38,6 +38,7 @@ import com.thezorro266.bukkit.srm.factories.RegionFactory.Region;
 import com.thezorro266.bukkit.srm.factories.SignFactory;
 import com.thezorro266.bukkit.srm.factories.SignFactory.Sign;
 import com.thezorro266.bukkit.srm.helpers.Location;
+import com.thezorro266.bukkit.srm.hooks.Economy;
 
 public class TemplateSell extends OwnableRegionTemplate {
 	protected double priceMin = 0;

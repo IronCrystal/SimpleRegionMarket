@@ -21,6 +21,7 @@ package com.thezorro266.bukkit.srm;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+
 import lombok.Getter;
 
 public final class LanguageSupport {

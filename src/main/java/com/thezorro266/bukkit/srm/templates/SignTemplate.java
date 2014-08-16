@@ -19,15 +19,18 @@
 package com.thezorro266.bukkit.srm.templates;
 
 import static com.thezorro266.bukkit.srm.factories.SignFactory.Sign.SIGN_LINE_COUNT;
+
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+
 import com.thezorro266.bukkit.srm.factories.RegionFactory.Region;
 import com.thezorro266.bukkit.srm.factories.SignFactory.Sign;
 import com.thezorro266.bukkit.srm.helpers.Location;

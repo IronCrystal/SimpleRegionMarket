@@ -19,6 +19,7 @@
 package com.thezorro266.bukkit.srm.helpers;
 
 import java.util.ArrayList;
+
 import com.thezorro266.bukkit.srm.factories.SignFactory.Sign;
 
 public class LocationSignHelper {

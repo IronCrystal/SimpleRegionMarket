@@ -26,7 +26,8 @@ public final class PlayerRentRegionEvent extends Event implements Cancellable {
         return sign;
     }
  
-    public HandlerList getHandlers() {
+    @Override
+	public HandlerList getHandlers() {
         return handlers;
     }
  

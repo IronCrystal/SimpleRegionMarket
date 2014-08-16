@@ -22,6 +22,7 @@ public class RegionExpireEvent extends Event {
 	}
 	
 
+	@Override
 	public HandlerList getHandlers() {
         return handlers;
     }

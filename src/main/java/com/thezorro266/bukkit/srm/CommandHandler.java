@@ -18,10 +18,9 @@
 
 package com.thezorro266.bukkit.srm;
 
-import com.thezorro266.bukkit.srm.exceptions.ContentSaveException;
-import com.thezorro266.bukkit.srm.factories.RegionFactory;
-import com.thezorro266.bukkit.srm.factories.RegionFactory.Region;
-import com.thezorro266.bukkit.srm.templates.interfaces.OwnableTemplate;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -30,8 +29,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
+import com.thezorro266.bukkit.srm.exceptions.ContentSaveException;
+import com.thezorro266.bukkit.srm.factories.RegionFactory;
+import com.thezorro266.bukkit.srm.factories.RegionFactory.Region;
+import com.thezorro266.bukkit.srm.templates.interfaces.OwnableTemplate;
 
 public class CommandHandler implements CommandExecutor {
 

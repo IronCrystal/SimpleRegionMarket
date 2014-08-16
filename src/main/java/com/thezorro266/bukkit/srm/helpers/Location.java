@@ -19,10 +19,12 @@
 package com.thezorro266.bukkit.srm.helpers;
 
 import lombok.Data;
+
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.Configuration;
+
 import com.thezorro266.bukkit.srm.exceptions.ContentLoadException;
 
 public @Data
@@ -86,7 +88,6 @@ class Location {
 		config.set(path + "z", z);
 	}
 
-	@SuppressWarnings("HardCodedStringLiteral")
 	@Override
 	public String toString() {
 		return String.format("Location[w:%s,c:(%d,%d,%d)]", world.getName(), x, y, z);

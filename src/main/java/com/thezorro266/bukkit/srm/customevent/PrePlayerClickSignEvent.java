@@ -26,7 +26,8 @@ public final class PrePlayerClickSignEvent extends Event implements Cancellable 
         return sign;
     }
  
-    public HandlerList getHandlers() {
+    @Override
+	public HandlerList getHandlers() {
         return handlers;
     }
  

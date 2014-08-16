@@ -18,13 +18,15 @@
 
 package com.thezorro266.bukkit.srm.hooks;
 
-import com.thezorro266.bukkit.srm.LanguageSupport;
-import com.thezorro266.bukkit.srm.SimpleRegionMarket;
+import java.text.MessageFormat;
+
 import net.milkbowl.vault.economy.EconomyResponse;
+
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
-import java.text.MessageFormat;
+import com.thezorro266.bukkit.srm.LanguageSupport;
+import com.thezorro266.bukkit.srm.SimpleRegionMarket;
 
 public class VaultEconomy extends Economy {
 	private net.milkbowl.vault.economy.Economy economy = null;

@@ -22,8 +22,6 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.logging.Level;
 
-import com.thezorro266.bukkit.srm.hooks.*;
-
 import lombok.Getter;
 
 import org.bukkit.plugin.java.JavaPlugin;
@@ -33,6 +31,13 @@ import com.thezorro266.bukkit.srm.exceptions.TemplateFormatException;
 import com.thezorro266.bukkit.srm.factories.RegionFactory;
 import com.thezorro266.bukkit.srm.helpers.LocationSignHelper;
 import com.thezorro266.bukkit.srm.helpers.WorldHelper;
+import com.thezorro266.bukkit.srm.hooks.BasicPermissions;
+import com.thezorro266.bukkit.srm.hooks.Economy;
+import com.thezorro266.bukkit.srm.hooks.NoEconomy;
+import com.thezorro266.bukkit.srm.hooks.Permissions;
+import com.thezorro266.bukkit.srm.hooks.VaultEconomy;
+import com.thezorro266.bukkit.srm.hooks.VaultHook;
+import com.thezorro266.bukkit.srm.hooks.VaultPermissions;
 import com.thezorro266.bukkit.srm.templates.Template;
 import com.thezorro266.bukkit.srm.templates.interfaces.TimedTemplate;
 

@@ -22,12 +22,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.thezorro266.bukkit.srm.factories.RegionFactory;
 import lombok.Getter;
+
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+
 import com.thezorro266.bukkit.srm.SimpleRegionMarket;
 import com.thezorro266.bukkit.srm.exceptions.TemplateFormatException;
 import com.thezorro266.bukkit.srm.factories.RegionFactory.Region;

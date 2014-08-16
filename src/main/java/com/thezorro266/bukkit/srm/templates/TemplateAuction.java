@@ -20,6 +20,7 @@ package com.thezorro266.bukkit.srm.templates;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+
 import com.thezorro266.bukkit.srm.factories.RegionFactory;
 import com.thezorro266.bukkit.srm.templates.interfaces.TimedTemplate;
 

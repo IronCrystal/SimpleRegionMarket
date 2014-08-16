@@ -18,18 +18,19 @@
 
 package com.thezorro266.bukkit.srm;
 
-import com.thezorro266.bukkit.srm.factories.RegionFactory;
-import com.thezorro266.bukkit.srm.helpers.RegionOwner;
-import com.thezorro266.bukkit.srm.templates.Template;
-import com.thezorro266.bukkit.srm.templates.interfaces.OwnableTemplate;
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import com.thezorro266.bukkit.srm.factories.RegionFactory;
+import com.thezorro266.bukkit.srm.helpers.RegionOwner;
+import com.thezorro266.bukkit.srm.templates.Template;
+import com.thezorro266.bukkit.srm.templates.interfaces.OwnableTemplate;
 
 public class PlayerManager implements Listener {
 	private final ArrayList<RegionOwner> ownerList = new ArrayList<RegionOwner>();

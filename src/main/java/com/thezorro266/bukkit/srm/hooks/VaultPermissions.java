@@ -18,16 +18,18 @@
 
 package com.thezorro266.bukkit.srm.hooks;
 
-import com.thezorro266.bukkit.srm.LanguageSupport;
-import com.thezorro266.bukkit.srm.SimpleRegionMarket;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+
 import net.milkbowl.vault.permission.Permission;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
+import com.thezorro266.bukkit.srm.LanguageSupport;
+import com.thezorro266.bukkit.srm.SimpleRegionMarket;
 
 public class VaultPermissions extends Permissions {
 	private Permission permission = null;

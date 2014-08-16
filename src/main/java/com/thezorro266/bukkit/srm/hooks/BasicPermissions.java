@@ -18,10 +18,10 @@
 
 package com.thezorro266.bukkit.srm.hooks;
 
+import java.util.ArrayList;
+
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import java.util.ArrayList;
 
 public class BasicPermissions extends Permissions {
 	public BasicPermissions() {

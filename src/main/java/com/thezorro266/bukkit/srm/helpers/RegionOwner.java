@@ -18,10 +18,11 @@
 
 package com.thezorro266.bukkit.srm.helpers;
 
-import com.thezorro266.bukkit.srm.factories.RegionFactory;
+import java.lang.ref.WeakReference;
+
 import org.bukkit.entity.Player;
 
-import java.lang.ref.WeakReference;
+import com.thezorro266.bukkit.srm.factories.RegionFactory;
 
 public class RegionOwner {
 	private WeakReference<Player> player;

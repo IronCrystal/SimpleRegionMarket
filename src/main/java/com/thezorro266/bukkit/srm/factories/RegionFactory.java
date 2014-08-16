@@ -22,13 +22,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
+
 import lombok.Getter;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
+
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
@@ -235,7 +238,6 @@ public class RegionFactory {
 			}
 		}
 
-		@SuppressWarnings("HardCodedStringLiteral")
 		@Override
 		public String toString() {
 			return String.format("Region[%s,w:%s,t:%s]", getName(), world.getName(), template.toString());

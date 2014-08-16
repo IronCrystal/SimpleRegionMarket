@@ -18,11 +18,13 @@
 
 package com.thezorro266.bukkit.srm.hooks;
 
-import com.thezorro266.bukkit.srm.LanguageSupport;
-import com.thezorro266.bukkit.srm.SimpleRegionMarket;
 import net.milkbowl.vault.Vault;
+
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
+
+import com.thezorro266.bukkit.srm.LanguageSupport;
+import com.thezorro266.bukkit.srm.SimpleRegionMarket;
 
 public class VaultHook {
 	private static final String VAULT_PLGUIN_NAME = "Vault"; //NON-NLS

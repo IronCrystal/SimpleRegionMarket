@@ -19,6 +19,7 @@
 package com.thezorro266.bukkit.srm.templates.interfaces;
 
 import org.bukkit.entity.Player;
+
 import com.thezorro266.bukkit.srm.factories.RegionFactory;
 
 public interface TimedTemplate {

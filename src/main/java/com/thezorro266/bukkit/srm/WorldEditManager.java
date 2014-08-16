@@ -21,12 +21,15 @@ package com.thezorro266.bukkit.srm;
 import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
+
 import lombok.Getter;
+
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.UnknownDependencyException;
+
 import com.sk89q.worldedit.BlockVector;
 import com.sk89q.worldedit.CuboidClipboard;
 import com.sk89q.worldedit.EditSession;
@@ -157,6 +160,7 @@ public class WorldEditManager {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public CuboidClipboard getClipboardFromRegion(RegionFactory.Region region) {
 		if (region.getWorldguardRegion() instanceof ProtectedCuboidRegion) {
 			ProtectedCuboidRegion cuboid = (ProtectedCuboidRegion) region.getWorldguardRegion();

@@ -18,14 +18,10 @@
 
 package com.thezorro266.bukkit.srm.hooks;
 
-import com.thezorro266.bukkit.srm.LanguageSupport;
-import com.thezorro266.bukkit.srm.SimpleRegionMarket;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.entity.Player;
-
-import java.text.MessageFormat;
 import java.util.ArrayList;
+
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public abstract class Permissions {
 	protected boolean enabled = false;

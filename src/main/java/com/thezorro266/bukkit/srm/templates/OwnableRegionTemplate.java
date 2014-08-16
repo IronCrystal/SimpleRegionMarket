@@ -20,6 +20,7 @@ package com.thezorro266.bukkit.srm.templates;
 
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
+
 import com.sk89q.worldguard.protection.databases.ProtectionDatabaseException;
 import com.thezorro266.bukkit.srm.SimpleRegionMarket;
 import com.thezorro266.bukkit.srm.WorldGuardManager;
